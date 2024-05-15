@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatbot</title>
+    <style>
+        #chat-container {
+            width: 300px;
+            margin: 20px auto;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div id="chat-container">
+        <div id="chat-log"></div>
+        <input type="text" id="user-input" placeholder="Type your message...">
+        <button onclick="sendMessage()">Send</button>
+    </div>
+
+    <script>
+        function greet() {
+            var responses = ["Hi there!", "Hello!", "Hey!", "Greetings!"];
+            return responses[Math.floor(Math.random() * responses.length)];
+        }
+
+        function farewell() {
+            var responses = ["Goodbye!", "See you later!", "Bye!", "Take care!"];
+            return responses[Math.floor(Math.random() * responses.length)];
+        }
+
+        function appendMessage(message, sender) {
+            var chatLog = document.getElementById("chat-log");
+            var messageDiv = document.createElement("div");
+            messageDiv.textContent = sender + ": " + message;
+            chatLog.appendChild(messageDiv);
+        }
+
+        function sendMessage() {
+            var userInput = document.getElementById("user-input").value;
+            appendMessage(userInput, "You");
+            if (userInput.toLowerCase() === "bye") {
+                appendMessage(farewell(), "Chatbot");
+                document.getElementById("user-input").disabled = true;
+                document.querySelector("button").disabled = true;
+            } else {
+                appendMessage("I'm just a simple chatbot. I don't understand much.", "Chatbot");
+            }
+            document.getElementById("user-input").value = "";
+        }
+
+        window.onload = function() {
+            appendMessage(greet(), "Chatbot");
+        };
+    </script>
+</body>
+</html>
